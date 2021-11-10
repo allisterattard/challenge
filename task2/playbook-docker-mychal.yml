@@ -3,21 +3,21 @@
   become: true
   gather_facts: no 
   tasks:
-    - name: Pull latest docker image
+    - name: Deploy React web app
       docker_container:
         name: webapp
         image: aattard_web
         restart_policy: always
         ports:
-          - 3001:80
-    - name: Pull latest docker image
+          - 3000:80
+    - name: Deploy Python API
       docker_container:
         name: api
         image: aattard_api
         restart_policy: always
         ports:
-          - 5001:5000
-    - name: Pull latest docker image
+          - 5000:5000
+    - name: Deploy Nginx
       docker_container:
         name: nginx
         image: nginx
