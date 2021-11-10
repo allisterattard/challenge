@@ -1,0 +1,28 @@
+---
+- hosts: chal
+  become: true
+  gather_facts: no 
+  tasks:
+    - name: Pull latest docker image
+      docker_container:
+        name: webapp
+        image: aattard_web
+        restart_policy: always
+        ports:
+          - 3001:80
+    - name: Pull latest docker image
+      docker_container:
+        name: api
+        image: aattard_api
+        restart_policy: always
+        ports:
+          - 5001:5000
+    - name: Pull latest docker image
+      docker_container:
+        name: nginx
+        image: nginx
+        restart_policy: always
+        volumes:
+          - /home/aattard/myChal/nginx/nginx.conf:/etc/nginx/nginx.conf
+        ports:
+          - 80:80

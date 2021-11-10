@@ -1,0 +1,36 @@
+version: '3.2'
+
+services:
+
+  web:
+    image: aattard_web:latest
+    build:
+      dockerfile: Dockerfile
+      context: ./sys-stats
+    container_name: web
+    restart: unless-stopped
+    expose:
+      - 80
+    ports:
+      - 3000:80
+    networks:
+      - challenge-net
+  api:
+    image: aattard_api:latest
+    build:
+      dockerfile: Dockerfile
+      context: ./api
+    container_name: api
+    restart: unless-stopped
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+    networks:
+      - challenge-net
+networks:
+  challenge-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.55.0/24
